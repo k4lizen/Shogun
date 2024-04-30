@@ -91,7 +91,7 @@ So, we can see the minimum size for a small bin is `0x20`, and the largest size 
 
 Similar to the unsorted bin, and large bins, insertions will happen at the `fd` (head) end of the "bin head chunk" and removals happen at the `bk` end (tail).
 
-Here is a diagram of some small bins. It looks almost identical to the small bin, except that each bin contains chunks of the same size:
+Here is a diagram of some small bins. It looks almost identical to the unsorted bin, except that each bin contains chunks of the same size:
 
 ![small_bin_0](diagrams/small_bins0.png)
 ![small_bin_1](diagrams/small_bins1.png)
