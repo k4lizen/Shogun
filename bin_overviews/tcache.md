@@ -4,7 +4,7 @@
 
 So the tcache is a heap binning mechanism, designed to recycle previously freed chunks to be used later. It is the first binning mechanism which malloc will try to either pull chunks from to malloc, or insert newly freed chunks into.
 
-Now one thing that separates the tcache from all of the other binning mechanisms. It operates on a per thread instance. That means, for each different thread your program has, it has a unique `tcache_pethread_struct` instance to model the tcache for that individual thread. In addition to that, it is the only binning mechanism not stored in the `main_arena` (that will be covered later).
+Now one thing that separates the tcache from all of the other binning mechanisms. It operates on a per thread instance. That means, for each different thread your program has, it has a unique `tcache_perthread_struct` instance to model the tcache for that individual thread. In addition to that, it is the only binning mechanism not stored in the `main_arena` (that will be covered later).
 
 Now about the tcache itself. The tcache consists of several different bins. Each bin is a singly linked list. The nodes in a singly linked list are previously freed malloc chunks, which can be recycled with future malloc calls. Each tcache bin is supposed to hold chunks of a particular size. This is the struct used to model a chunk present in a tcache bin, that is ready to be recycled with a future malloc call:
 
@@ -46,7 +46,7 @@ We also see, that the max number of tcache bins is `64`:
 
 Another concept I'd like to introduce you to, is the idea of a tcache index. We see that the tcache bins are stored in an array. A tcache index is used to reference a particular tcache bin in the `tcache_entry *entries` array. Now what separates most tcache bins, is the size of the chunks that it's supposed to store. To get the particular tcache which corresponds to a particular size (either for allocation, or freeing) it can take the size, run it through an algorithm, and that will generate the index. Using that index, it can get either the head chunk, or count (number of tcache chunks in that bin) for that particular tcache bin.
 
-Now, the mapping between tcache index and size is relatively simple. All tcache bins only hold a particular size. It starts off at `0x20`, then goes to `0x30/0x40/0x05...` up to index `63` with size `0x410`. Now the size range you will see is `0x10` bytes. However when malloc is allocating a chunk, it will round up to the nearest `0x10` divisible size. As such in practicality, each tcache bin only stores chunks of a particular size.
+Now, the mapping between tcache index and size is relatively simple. All tcache bins only hold a particular size. It starts off at `0x20`, then goes to `0x30/0x40/0x50...` up to index `63` with size `0x410`. Now the size range you will see is `0x10` bytes. However when malloc is allocating a chunk, it will round up to the nearest `0x10` divisible size. As such in practicality, each tcache bin only stores chunks of a particular size.
 
 | Index | Size |
 | ---- | ---- |
