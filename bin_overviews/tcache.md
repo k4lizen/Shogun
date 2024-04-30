@@ -117,7 +117,7 @@ Now, the mapping between tcache index and size is relatively simple. All tcache 
 
 #### Tcache Insertions / Removals
 
-So tcache insertions, and removals, both happen at the head of the linked list. Since the tcache only heeps a head ptr of the singly linked list, and the primary concern when allocating a chunk is the size of the chunk (which it already knows since each tcache only stores chunks of one size), it just needs any chunk from the tcache. So simply doing both insertions and removals at the head, helps with performance and keeps things simple (at least I assume that is the reasoning).
+So tcache insertions, and removals, both happen at the head of the linked list. Since the tcache only keeps a head ptr of the singly linked list, and the primary concern when allocating a chunk is the size of the chunk (which it already knows since each tcache only stores chunks of one size), it just needs any chunk from the tcache. So simply doing both insertions and removals at the head, helps with performance and keeps things simple (at least I assume that is the reasoning).
 
 #### Tcache Key
 
