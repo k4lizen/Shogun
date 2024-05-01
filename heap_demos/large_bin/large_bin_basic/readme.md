@@ -1,6 +1,6 @@
 ## large bin basic
 
-So, in this instance, we will be showing the basics of the `small bin`. We will be showing insertions, and removals into the `unsorted bin`.
+So, in this instance, we will be showing the basics of the `large bin`. We will be showing insertions, and removals into the `unsorted bin`.
 
 Here is the source code for the binary we will be looking at:
 
