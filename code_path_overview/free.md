@@ -104,11 +104,6 @@ This will get the actual size of the "user data section" of a malloc chunk. It d
 /* Get size, ignoring use bits */
 #define chunksize(p) (chunksize_nomask (p) & ~(SIZE_BITS))
 
- . . .
-
-/* Get size, ignoring use bits */
-#define chunksize(p) (chunksize_nomask (p) & ~(SIZE_BITS))
-
 /* Like chunksize, but do not mask SIZE_BITS.  */
 #define chunksize_nomask(p)     	((p)->mchunk_size)
 ```
