@@ -1201,11 +1201,11 @@ After that, we see there is a for loop with no exit condition in the `"for state
 So, this is the first part of the "Malloc Allocation" Outer Loop, which in itself is a while loop. Effectively, this loop will iterate through all of the chunks in the unsorted bin, removing and processing them one by one (assuming in the middle of a loop iteration it doesn't find a chunk it can allocate, in which case the loop will end). Starting off, we see it will take a chunk (starting with the `bk` end of the "unsorted bin main chunk"). It will get its chunksize, and also a ptr to its next adjacent chunk.
 
 Proceeding that, it will run a series of checks:
-    *    Is the size of the unsorted bin chunk less than `CHUNK_HDR_SZ`?
-    *    Is the size of the next adjacent chunk to the unsorted bin chunk less than `CHUNK_HDR_SZ`
-    *    Is the previous size of the next adjacent chunk equal to the size of the current unsorted bin chunk?
-    *    Is the fwd ptr (doubly linked list) of the `bk` ptr of the current unsorted bin chunk equal to the current unsorted bin chunk? (`victim->bk->fd == victim`)
-    *    Is the previous in use bit of the next adjacent chunk in memory to the current unsorted bin chunk set?
+*   Is the size of the unsorted bin chunk less than `CHUNK_HDR_SZ`?
+*   Is the size of the next adjacent chunk to the unsorted bin chunk less than `CHUNK_HDR_SZ`
+*   Is the previous size of the next adjacent chunk equal to the size of the current unsorted bin chunk?
+*   Is the fwd ptr (doubly linked list) of the `bk` ptr of the current unsorted bin chunk equal to the current unsorted bin chunk? (`victim->bk->fd == victim`)
+*   Is the previous in use bit of the next adjacent chunk in memory to the current unsorted bin chunk set?
 
 Also, that tcache stuff we see after the loop. Similar to what we've seen before, in this loop we'll see spots where the tcache can have chunks put into it. That is effectively checking did it insert a chunk into the tcache of a size we need, and if so, just allocate it:
 
