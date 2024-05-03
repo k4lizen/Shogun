@@ -274,13 +274,13 @@ void secret(void) {
 ## How will we pwn this?
 
 So looking over the things we can do:
-    *    We have a maximum of 10 chunks
-    *    We can request chunks, of sizes 0x000-0x5f0
-    *    We can free those chunks
-   	*    freed ptrs not erased, use after free
-    *    View contents of chunks
-    *    Write to chunks, size of the allocation
-    *    Write either a stack, or pie address to a chunk
+*    We have a maximum of 10 chunks
+*    We can request chunks, of sizes 0x000-0x5f0
+*    We can free those chunks
+*    freed ptrs not erased, use after free
+*    View contents of chunks
+*    Write to chunks, size of the allocation
+*    Write either a stack, or pie address to a chunk
 
 And just to reiterate. Our goal is to call the `you_win` function. This is how we will do it.
 
