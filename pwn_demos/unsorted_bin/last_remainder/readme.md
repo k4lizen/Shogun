@@ -93,7 +93,7 @@ When the last_remainder chunk is the only chunk in the unsorted bin, malloc can 
 
 How we will accomplish our goal is by doing this. We will have a chunk, become the last_remainder, that is before the areas we want to allocate. We will expand it's size via overwriting the chunk size, to encompass the areas we want to allocate. Right after that chunk, we will set a fake chunk header, with a `prev_size` that matches our expanded last_remainder chunk size, and a chunk size that has the `prev_inuse` bit flag not set (and hopefully lines up with the next chunk, to avoid potential issues).
 
-Then simply, we will first allocate a chunk from the last_remainder, to line it up with `chunk0` (`0x5d0`). Then, we will simply reallocate `chunk0/chunk1/chunk2` (they are all directly adjacent, no alignment allocations in between necissary).
+Then simply, we will first allocate a chunk from the last_remainder, to line it up with `chunk0` (`0x5d0`). Then, we will simply reallocate `chunk0/chunk1/chunk2` (they are all directly adjacent, no alignment allocations in between necessary).
 
 Let's see this in action:
 
