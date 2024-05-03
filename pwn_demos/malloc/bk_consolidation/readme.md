@@ -35,7 +35,7 @@ void main() {
     printf("Then we will reallocate the memory of chunk0 without actually freeing it.\n\n");
 
     printf("Starting off, we will change the chunk header of chunk1, to make it look like the previous chunk is freed.\n");
-    printf("We will need to set the prev_size equal to the size of chunk1.\n");
+    printf("We will need to set the prev_size equal to the size of chunk0.\n");
     printf("In addition to that, we will need to clear the prev_inuse flag of the size value of chunk1.\n\n");
 
     chunk1[-2] = (CHUNK_SIZE0 + 0x10);
