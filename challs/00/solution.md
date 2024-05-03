@@ -704,16 +704,16 @@ gef➤  x/20g 0x56274cf46040
 So here, we see that the offset from the base of the pie memory region to `chunks` is `0x56274cf46040 - 0x000056274cf42000 = 0x4040`.
 
 So, we have all of the offsets we need to. Just to recap, these are the steps our exploit will take:
-    *    allocate 4 chunks, first one of size `0x500` (index `0`), second `0x80` (index `2`), third `0x500` (index `1`), fourth `0x80` (index `3`)
-    *    use secret/view chunk with chunk at index `0`, get pie/stack infoleak
-    *    free two `0x500` chunks (indices `0/1`), insert them into the unsorted bin
-    *    view chunk `1`, to get a heap infoleak
-    *    free chunk `3`, then `2` (both size `0x80`), insert them into the tcache
-   	*    we free two chunks, to increment tcache bin count to `2` for that bin
-    *    edit chunk `2` (current tcache bin head), replace with mangled next ptr to `chunks`
-    *    allocate two more chunks from the same bin, get ptr to `chunks`
-    *    overwrite first ptr in `chunks`, with stack address where `edit_chunk` stores it's return address
-    *    in `edit_chunk`, overwrite it's own return address with that of `you_win`, return, and call `you_win`
+*    allocate 4 chunks, first one of size `0x500` (index `0`), second `0x80` (index `2`), third `0x500` (index `1`), fourth `0x80` (index `3`)
+*    use secret/view chunk with chunk at index `0`, get pie/stack infoleak
+*    free two `0x500` chunks (indices `0/1`), insert them into the unsorted bin
+*    view chunk `1`, to get a heap infoleak
+*    free chunk `3`, then `2` (both size `0x80`), insert them into the tcache
+*    we free two chunks, to increment tcache bin count to `2` for that bin
+*    edit chunk `2` (current tcache bin head), replace with mangled next ptr to `chunks`
+*    allocate two more chunks from the same bin, get ptr to `chunks`
+*    overwrite first ptr in `chunks`, with stack address where `edit_chunk` stores it's return address
+*    in `edit_chunk`, overwrite it's own return address with that of `you_win`, return, and call `you_win`
 
 Here is the exploit code which does all of that:
 
