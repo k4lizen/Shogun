@@ -10,7 +10,6 @@ Here is the code which we will be looking at:
 #include <stdlib.h>
 
 #define CHUNK_SIZE0 0x100
-#define CHUNK_SIZE1 0x10
 
 long target = 0xdeadbeef;
 
@@ -28,14 +27,10 @@ void main() {
 
     printf("First, we will allocate our heap chunks.\n");
     printf("Three 0x%x byte chunks to be freed and inserted into the tcache.\n", CHUNK_SIZE0);
-    printf("There will be three 0x%x byte chunks inbetween those three, to prevent consolidation.\n\n", CHUNK_SIZE1);
 
     chunk0 = malloc(CHUNK_SIZE0);
-    malloc(CHUNK_SIZE1);
     chunk1 = malloc(CHUNK_SIZE0);
-    malloc(CHUNK_SIZE1);
     chunk2 = malloc(CHUNK_SIZE0);
-    malloc(CHUNK_SIZE1);
 
     memset(chunk0, 0x00, CHUNK_SIZE0);
     memset(chunk1, 0x00, CHUNK_SIZE0);
