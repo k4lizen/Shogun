@@ -89,11 +89,11 @@ void main() {
 ## Walkthrough
 
 So, let's actually go through this in a debugger. Here are the major steps:
-    *    Insert Chunks into tcache
-    *    Alter next ptr of a tcache chunk to an address we want to allocate a chunk to
-    *    Allocate altered chunk, set new head to address we want to allocate
-    *    Allocate chunk to address we want to
-    *    Write/Read memory at address we want to, get arbitrary read/write
+*    Insert Chunks into tcache
+*    Alter next ptr of a tcache chunk to an address we want to allocate a chunk to
+*    Allocate altered chunk, set new head to address we want to allocate
+*    Allocate chunk to address we want to
+*    Write/Read memory at address we want to, get arbitrary read/write
 
 Now, in order to do this in an actual program, you would likely need three bugs. You need an infoleak of the heap, so you can break heap ASLR (since you need to know the heap address space because of the next ptr mangling). You need to know the address of the thing you want to allocate a chunk to, which because PIE is enabled and we want to overwrite a global variable, we would need a PIE infoleak to break PIE ASLR. Lastly you would need a bug to actually overwrite the next ptr of a chunk in the tcache (be it a Use After Free, Double Free, Heap Overflow, etc). In this instance, we are effectively using a Use After Free.
 
